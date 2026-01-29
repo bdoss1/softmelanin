@@ -1,0 +1,140 @@
+// Soft Melanin MCP - Database Schema
+// Using SQLite for simplicity and portability
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// Content Artifacts
+// ============================================================================
+
+model ContentArtifact {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Core identifiers
+  platform String // linkedin_founder, linkedin_company, substack
+  segment  String // overextended_professional, healing_high_achiever, creative_reclaimer
+
+  // Content
+  hook String
+  body String
+
+  // Framework mappings stored as JSON
+  tripleS String // JSON: { stop, stay, share }
+  soft    String // JSON: { separate, own, filter, thrive }
+
+  // Hashtags and SEO
+  hashtags String  // JSON array
+  seoTags  String? // JSON array (optional, for Substack)
+
+  // Visual generation
+  visual String // JSON: { prompt, palette, quoteCardTextOptions }
+
+  // Product mentions
+  productMentions String? // JSON array (optional)
+
+  // Growth optimization
+  growth String // JSON: { bestPostingTimes, repurposingIdeas, abVariants }
+
+  // QA validation
+  qa String // JSON: { authenticityPass, brandVoicePass, etc. }
+
+  // Generation context
+  seedIdea     String?
+  monthlyTheme String?
+
+  // Indexes for efficient querying
+  @@index([platform])
+  @@index([segment])
+  @@index([createdAt])
+}
+
+// ============================================================================
+// Generation Sessions
+// ============================================================================
+
+model GenerationSession {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Input
+  seedIdea     String
+  monthlyTheme String?
+  segments     String // JSON array of selected segments
+  platforms    String // JSON array of selected platforms
+
+  // Options
+  includeProductMentions Boolean @default(false)
+  generateABVariants     Boolean @default(false)
+
+  // Output
+  artifactIds String // JSON array of artifact IDs
+  success     Boolean
+  errors      String? // JSON array of errors
+}
+
+// ============================================================================
+// Monthly Themes
+// ============================================================================
+
+model MonthlyTheme {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Theme details
+  month       Int    // 1-12
+  year        Int
+  title       String
+  description String
+  keywords    String // JSON array
+
+  // Active status
+  isActive Boolean @default(false)
+
+  @@unique([month, year])
+}
+
+// ============================================================================
+// Seed Ideas Library
+// ============================================================================
+
+model SeedIdea {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Content
+  idea     String
+  category String? // optional categorization
+  tags     String? // JSON array
+
+  // Usage tracking
+  usageCount Int     @default(0)
+  lastUsedAt DateTime?
+}
+
+// ============================================================================
+// Hashtag Performance (for optimization)
+// ============================================================================
+
+model HashtagPerformance {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  hashtag     String @unique
+  category    String // primary, wellness, identity, business
+  usageCount  Int    @default(0)
+
+  // Performance metrics (to be populated from analytics)
+  avgEngagement Float?
+  avgReach      Float?
+}
