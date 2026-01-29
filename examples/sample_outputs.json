@@ -1,0 +1,437 @@
+{
+  "acceptanceTestSeed": "Boundaries at work when everyone thinks you're the dependable one",
+  "generatedAt": "2024-01-15T10:00:00Z",
+  "artifacts": [
+    {
+      "platform": "linkedin_founder",
+      "segment": "overextended_professional",
+      "hook": "The myth of 'just pushing through' cost me my health, my joy, and nearly my career.",
+      "body": "I spent 15 years believing that rest was a reward I hadn't earned yet.\n\nEvery boundary I set felt like betrayal.\n\nEvery pause felt like failure.\n\nUntil my body made the choice for me.\n\nHere's what I learned in recovery:\n\nYour worth was never tied to your output.\n\nThe people who truly see you don't need you depleted to feel valued.\n\nSoftness isn't the absence of strength—it's the presence of wisdom.\n\nToday, I lead differently.\n\nNot from exhaustion, but from intention.\n\nNot from proving, but from being.\n\nIf this resonates, I want you to know: you can put down the weight without losing your way.",
+      "tripleS": {
+        "stop": {
+          "hook": "The myth of 'just pushing through' cost me my health, my joy, and nearly my career.",
+          "fiveC": "conflict"
+        },
+        "stay": {
+          "story": "Personal narrative of burnout and recovery, illustrating the cost of ignoring boundaries and the transformation that comes from embracing softness."
+        },
+        "share": {
+          "takeaways": [
+            "Your worth was never tied to your output",
+            "Softness isn't the absence of strength—it's the presence of wisdom",
+            "You can put down the weight without losing your way"
+          ],
+          "cta": "What would change if you gave yourself permission to rest before you break?"
+        }
+      },
+      "soft": {
+        "separate": "Disconnecting self-worth from productivity metrics and external validation",
+        "own": "Taking ownership of boundaries and the choice to lead from intention",
+        "filter": "Learning to filter demands through the lens of sustainability",
+        "thrive": "Building systems that support flourishing without depletion"
+      },
+      "hashtags": [
+        "#SoftMelanin",
+        "#SoftnessIsPower",
+        "#BoundariesAreSoftness",
+        "#BlackWomenLead",
+        "#SoftLifeCoaching"
+      ],
+      "visual": {
+        "prompt": "A Black woman in a peaceful moment of reflection, sitting by a window with warm morning light, wearing soft earth tones. She has a gentle smile and relaxed posture, embodying peace and self-assurance. Artistic style: warm photography with golden brown and deep brown color palette, soft focus, intimate atmosphere.",
+        "palette": ["#6e3f2b", "#a6683f", "#d2955e"],
+        "quoteCardTextOptions": [
+          "Softness isn't weakness. It's wisdom.",
+          "Rest before you break.",
+          "Your worth ≠ your output"
+        ]
+      },
+      "growth": {
+        "bestPostingTimes": [
+          "Tuesday 9:00 AM EST",
+          "Wednesday 12:00 PM EST",
+          "Thursday 7:00 AM EST"
+        ],
+        "repurposingIdeas": [
+          "Extract the 3 takeaways as individual quote graphics",
+          "Expand the recovery story into a Substack article",
+          "Create a carousel showing the 'before/after' transformation"
+        ],
+        "abVariants": [
+          {
+            "label": "A",
+            "hook": "The myth of 'just pushing through' cost me my health, my joy, and nearly my career."
+          },
+          {
+            "label": "B",
+            "hook": "I used to believe rest was a reward. My body taught me it's a requirement."
+          }
+        ]
+      },
+      "qa": {
+        "authenticityPass": true,
+        "brandVoicePass": true,
+        "culturalSensitivityPass": true,
+        "businessRelevancePass": true,
+        "errors": []
+      }
+    },
+    {
+      "platform": "linkedin_founder",
+      "segment": "healing_high_achiever",
+      "hook": "You've done the therapy. You've read the books. So why do you still say yes when you mean no?",
+      "body": "Integration is the hardest part of healing.\n\nYou know the patterns.\n\nYou recognize the triggers.\n\nYou can name the wound.\n\nBut when the email comes in at 9 PM...\n\nWhen the colleague needs 'just five minutes'...\n\nWhen the project scope creeps for the third time...\n\nThe old reflexes kick in.\n\nThis isn't failure. It's the gap between insight and embodiment.\n\nHere's what I've learned:\n\nKnowledge lives in the mind. Boundaries live in the body.\n\nYou need practices, not just principles.\n\nRituals that anchor your no.\n\nPhrases that honor your limits.\n\nSystems that protect your peace.\n\nThe work isn't about knowing better. It's about building better infrastructure for your boundaries.",
+      "tripleS": {
+        "stop": {
+          "hook": "You've done the therapy. You've read the books. So why do you still say yes when you mean no?",
+          "fiveC": "curiosity"
+        },
+        "stay": {
+          "story": "Acknowledging the frustration of healing high-achievers who understand intellectually but struggle to implement practically, validating the gap between knowing and doing."
+        },
+        "share": {
+          "takeaways": [
+            "Knowledge lives in the mind. Boundaries live in the body.",
+            "You need practices, not just principles.",
+            "The work isn't about knowing better. It's about building better infrastructure."
+          ],
+          "cta": "What's one boundary you know you need but haven't built the infrastructure for yet?"
+        }
+      },
+      "soft": {
+        "separate": "Separating the shame of 'knowing better' from the reality of embodied change",
+        "own": "Owning that integration takes more than insight—it requires new systems",
+        "filter": "Filtering the difference between understanding and implementing",
+        "thrive": "Thriving through practices that make boundaries automatic, not effortful"
+      },
+      "hashtags": [
+        "#SoftMelanin",
+        "#SoftnessStrategist",
+        "#BoundariesAreSoftness",
+        "#ThriveInSoftness",
+        "#AuthenticConfidence"
+      ],
+      "visual": {
+        "prompt": "A Black woman journaling in a cozy space, surrounded by books and soft lighting. She appears thoughtful and grounded, representing the integration of knowledge into practice. Style: warm editorial photography, earth tones, intimate and reflective mood.",
+        "palette": ["#6e3f2b", "#a6683f", "#d2955e"],
+        "quoteCardTextOptions": [
+          "Knowledge lives in the mind. Boundaries live in the body.",
+          "Practices, not just principles.",
+          "Build infrastructure for your boundaries."
+        ]
+      },
+      "growth": {
+        "bestPostingTimes": [
+          "Monday 8:00 AM EST",
+          "Wednesday 12:00 PM EST",
+          "Friday 6:00 PM EST"
+        ],
+        "repurposingIdeas": [
+          "Create a 'Boundary Infrastructure Checklist' lead magnet",
+          "Turn into a Substack deep-dive on embodied healing",
+          "Develop a carousel on 'The Gap Between Insight and Embodiment'"
+        ],
+        "abVariants": [
+          {
+            "label": "A",
+            "hook": "You've done the therapy. You've read the books. So why do you still say yes when you mean no?"
+          },
+          {
+            "label": "B",
+            "hook": "Healing isn't just about understanding your patterns. It's about building new infrastructure."
+          }
+        ]
+      },
+      "qa": {
+        "authenticityPass": true,
+        "brandVoicePass": true,
+        "culturalSensitivityPass": true,
+        "businessRelevancePass": true,
+        "errors": []
+      }
+    },
+    {
+      "platform": "linkedin_founder",
+      "segment": "creative_reclaimer",
+      "hook": "You built something beautiful. Now you're exhausted holding it together.",
+      "body": "The business that was supposed to free you has become another cage.\n\nThe creative practice that lit you up now feels like another demand.\n\nThe vision you chased has outpaced your capacity to hold it.\n\nI see you.\n\nYou didn't fail at boundaries. You succeeded at building without them.\n\nAnd now everything needs what you don't have left to give.\n\nHere's the truth no one tells creative builders:\n\nStructure isn't the enemy of freedom. It's the container that makes freedom sustainable.\n\nYour business needs boundaries not as restrictions, but as architecture.\n\nNot as limitations, but as load-bearing walls.\n\nYou can redesign what you built. You can add the support beams that were missing from the original blueprint.\n\nYour vision doesn't have to crush you to exist.",
+      "tripleS": {
+        "stop": {
+          "hook": "You built something beautiful. Now you're exhausted holding it together.",
+          "fiveC": "contrast"
+        },
+        "stay": {
+          "story": "Naming the painful irony of creative success that becomes a new form of burnout, validating the exhaustion while offering hope for redesign."
+        },
+        "share": {
+          "takeaways": [
+            "Structure isn't the enemy of freedom—it's the container that makes freedom sustainable.",
+            "Your business needs boundaries as architecture, not restrictions.",
+            "You can redesign what you built."
+          ],
+          "cta": "What part of what you've built needs a support beam you've been afraid to add?"
+        }
+      },
+      "soft": {
+        "separate": "Separating the success of creation from the sustainability of maintaining it",
+        "own": "Owning that building without boundaries was a choice that can be remade",
+        "filter": "Filtering demands through what the business truly needs vs. what drains it",
+        "thrive": "Thriving by treating boundaries as architecture for sustainable creativity"
+      },
+      "hashtags": [
+        "#SoftMelanin",
+        "#SoftnessIsPower",
+        "#SoftBusinessStrategy",
+        "#BlackWomenInBusiness",
+        "#FounderEnergy"
+      ],
+      "visual": {
+        "prompt": "A Black woman entrepreneur in her creative studio space, looking at her work with a mixture of pride and exhaustion, then a transition to her in a peaceful moment of planning and restructuring. Style: cinematic split composition, warm earth tones, storytelling through visual contrast.",
+        "palette": ["#6e3f2b", "#a6683f", "#d2955e"],
+        "quoteCardTextOptions": [
+          "Structure is freedom's container.",
+          "Boundaries are architecture, not restrictions.",
+          "Your vision doesn't have to crush you."
+        ]
+      },
+      "growth": {
+        "bestPostingTimes": [
+          "Tuesday 10:00 AM EST",
+          "Thursday 2:00 PM EST",
+          "Saturday 9:00 AM EST"
+        ],
+        "repurposingIdeas": [
+          "Create a 'Business Boundary Audit' template",
+          "Develop into a Substack series on sustainable creative businesses",
+          "Design an infographic on 'Boundaries as Business Architecture'"
+        ],
+        "abVariants": [
+          {
+            "label": "A",
+            "hook": "You built something beautiful. Now you're exhausted holding it together."
+          },
+          {
+            "label": "B",
+            "hook": "What if the structure you've been avoiding is the freedom you've been seeking?"
+          }
+        ]
+      },
+      "qa": {
+        "authenticityPass": true,
+        "brandVoicePass": true,
+        "culturalSensitivityPass": true,
+        "businessRelevancePass": true,
+        "errors": []
+      }
+    },
+    {
+      "platform": "linkedin_company",
+      "segment": "overextended_professional",
+      "hook": "The S.O.F.T. Framework isn't about doing less. It's about building different.",
+      "body": "At Soft Melanin, we believe boundaries are the foundation of sustainable leadership.\n\nNot barriers. Foundation.\n\nOur S.O.F.T. Framework helps overextended professionals:\n\n**S - Separate** your worth from your work output\n\n**O - Own** your role and its actual boundaries\n\n**F - Filter** demands through sustainability, not capability\n\n**T - Thrive** through systems that support, not strain\n\nThis isn't about stepping back from leadership.\n\nIt's about stepping into a leadership that doesn't require your depletion.\n\nBecause you can be excellent and boundaried.\n\nYou can be dependable and protected.\n\nYou can lead and still breathe.\n\nThe question isn't whether you can maintain the pace.\n\nIt's whether the pace deserves you.",
+      "tripleS": {
+        "stop": {
+          "hook": "The S.O.F.T. Framework isn't about doing less. It's about building different.",
+          "fiveC": "contradiction"
+        },
+        "stay": {
+          "story": "Educational content that reframes the SOFT methodology as a tool for leadership excellence rather than stepping back from demands."
+        },
+        "share": {
+          "takeaways": [
+            "Separate worth from work output",
+            "Filter demands through sustainability, not capability",
+            "You can be excellent and boundaried"
+          ],
+          "cta": "Which element of the S.O.F.T. framework resonates most with where you are right now?"
+        }
+      },
+      "soft": {
+        "separate": "The core teaching of disconnecting identity from productivity",
+        "own": "Taking clear ownership of role boundaries",
+        "filter": "The practice of evaluating demands sustainably",
+        "thrive": "Building systems for flourishing"
+      },
+      "hashtags": [
+        "#SoftMelanin",
+        "#SoftnessStrategist",
+        "#SoftBusinessStrategy",
+        "#BlackWomenLead",
+        "#SoftLifeCoaching"
+      ],
+      "visual": {
+        "prompt": "An elegant infographic-style image showing the SOFT framework as four interconnected elements, using the brand colors. Clean, professional, with subtle imagery of Black women in leadership positions. Style: modern business graphic design, warm earth palette, sophisticated and accessible.",
+        "palette": ["#6e3f2b", "#a6683f", "#d2955e"],
+        "quoteCardTextOptions": [
+          "Excellent and boundaried.",
+          "Dependable and protected.",
+          "Lead and still breathe."
+        ]
+      },
+      "growth": {
+        "bestPostingTimes": [
+          "Monday 9:00 AM EST",
+          "Wednesday 11:00 AM EST",
+          "Thursday 8:00 AM EST"
+        ],
+        "repurposingIdeas": [
+          "Create an animated carousel explaining each SOFT element",
+          "Develop a free SOFT assessment quiz",
+          "Turn into a Substack 'Framework Deep Dive' series"
+        ]
+      },
+      "qa": {
+        "authenticityPass": true,
+        "brandVoicePass": true,
+        "culturalSensitivityPass": true,
+        "businessRelevancePass": true,
+        "errors": []
+      }
+    },
+    {
+      "platform": "linkedin_company",
+      "segment": "healing_high_achiever",
+      "hook": "Emotional boundaries aren't soft skills. They're leadership infrastructure.",
+      "body": "In every organization we've worked with, we see the same pattern:\n\nThe highest performers are often the most emotionally depleted.\n\nNot because they lack awareness.\n\nBut because the systems around them weren't built for emotional sustainability.\n\nAt Soft Melanin, we're redefining what boundary-centered leadership looks like:\n\n→ Meetings with clear emotional scope\n→ Requests that respect capacity, not just calendar\n→ Recognition that honors the whole person\n→ Cultures where 'no' is professional, not problematic\n\nThis isn't about lowering standards.\n\nIt's about building systems where excellence doesn't require extraction.\n\nWhere high performance includes high protection.\n\nWhere being good at your job doesn't mean being available for everyone else's.",
+      "tripleS": {
+        "stop": {
+          "hook": "Emotional boundaries aren't soft skills. They're leadership infrastructure.",
+          "fiveC": "contradiction"
+        },
+        "stay": {
+          "story": "Business case for emotional boundaries as organizational infrastructure, not individual weakness."
+        },
+        "share": {
+          "takeaways": [
+            "Excellence doesn't require extraction",
+            "High performance includes high protection",
+            "Being good at your job doesn't mean being available for everyone else's"
+          ],
+          "cta": "What would shift in your organization if emotional boundaries were treated as infrastructure?"
+        }
+      },
+      "soft": {
+        "separate": "Separating performance from personal depletion at the organizational level",
+        "own": "Organizations owning their role in creating sustainable systems",
+        "filter": "Filtering requests through capacity, not just capability",
+        "thrive": "Building cultures where boundaries are normalized"
+      },
+      "hashtags": [
+        "#SoftMelanin",
+        "#BoundariesAreSoftness",
+        "#SoftBusinessStrategy",
+        "#BlackWomenLead",
+        "#FounderEnergy"
+      ],
+      "visual": {
+        "prompt": "A professional setting showing a diverse team in a meeting where everyone appears present and engaged without signs of exhaustion. Clean, modern office space with warm lighting and earth-toned accents. Style: corporate editorial photography, warm and humanizing, professional but not sterile.",
+        "palette": ["#6e3f2b", "#a6683f", "#d2955e"],
+        "quoteCardTextOptions": [
+          "Excellence without extraction.",
+          "High performance + high protection.",
+          "Boundaries are infrastructure."
+        ]
+      },
+      "growth": {
+        "bestPostingTimes": [
+          "Tuesday 10:00 AM EST",
+          "Wednesday 2:00 PM EST",
+          "Friday 9:00 AM EST"
+        ],
+        "repurposingIdeas": [
+          "Develop into a white paper on 'Emotional Infrastructure in Organizations'",
+          "Create a company culture assessment tool",
+          "Turn into a webinar series for HR leaders"
+        ]
+      },
+      "qa": {
+        "authenticityPass": true,
+        "brandVoicePass": true,
+        "culturalSensitivityPass": true,
+        "businessRelevancePass": true,
+        "errors": []
+      }
+    },
+    {
+      "platform": "substack",
+      "segment": "overextended_professional",
+      "hook": "The Dependable One's Dilemma: When Your Competence Becomes Your Cage",
+      "body": "## Introduction\n\nYou've built a reputation. People count on you. When things need to get done—really get done—your name is the first one mentioned.\n\nThis should feel like success.\n\nInstead, it feels like a trap you built with your own excellence.\n\nWelcome to the dependable one's dilemma: the more capable you prove yourself, the more you're expected to carry. The better you perform under pressure, the more pressure gets directed your way.\n\n## The Hidden Cost of Being Indispensable\n\nLet's be honest about what's happening beneath the surface of your reputation.\n\nEvery time you say yes when you mean no, you're not just overextending yourself. You're:\n\n- Training others that your boundaries are negotiable\n- Reinforcing systems that depend on individual sacrifice\n- Delaying the organizational learning that would happen if you weren't available\n- Depleting the very excellence that made you valuable in the first place\n\nThis isn't about capability. You can do it. The question is: should you?\n\n## Reframing Dependability Through the S.O.F.T. Framework\n\n### S - Separate Worth from Work\n\nThe first step is recognizing that your value as a person is not determined by your availability as a resource.\n\nYou are not your to-do list.\nYou are not your response time.\nYou are not the problems you solve.\n\nThese are things you do. They are not who you are.\n\n### O - Own Your Role and Its Actual Boundaries\n\nWhat is your job, actually? Not what it has expanded to become. Not what others expect. What were you hired to do?\n\nMost overextended professionals are doing 2-3 jobs while being paid and titled for one. Owning your actual role means getting clear about where your responsibility ends and someone else's begins.\n\n### F - Filter Demands Through Sustainability\n\nEvery request that comes to you needs to pass through a filter: Can I do this sustainably?\n\nNot \"Can I do this?\" (of course you can)\nNot \"Should someone do this?\" (probably)\nBut: \"Can I do this without depleting my capacity for what actually matters?\"\n\n### T - Thrive Through Sustainable Systems\n\nThe goal isn't to do less. It's to build systems that support you doing what matters without constantly operating at the edge of your capacity.\n\nThis means:\n- Saying no to requests that others could handle\n- Delegating before you're depleted\n- Creating buffers in your calendar and your commitments\n- Building recovery time into your rhythm, not as a reward but as a requirement\n\n## The Boundary Scripts You Need\n\nLet's get practical. Here are phrases you can use when the familiar requests come in:\n\n**\"I have capacity for this, but not this week. Let's look at [specific future time].\"**\n\nThis acknowledges the request while protecting your current bandwidth.\n\n**\"I want to help, but I'm not the right person for this. Have you considered [alternative]?\"**\n\nThis redirects without rejecting.\n\n**\"My plate is full right now. What would you like me to deprioritize to make room for this?\"**\n\nThis makes the trade-off visible and puts the choice back where it belongs.\n\n## The Cultural Context\n\nFor Black women in professional spaces, this conversation carries additional weight.\n\nWe've been taught that excellence is our protection—that being indispensable is how we secure our place at tables that weren't built for us.\n\nAnd there's truth in that history.\n\nBut there's also a cost that rarely gets named: the expectation that we will carry more, complain less, and somehow remain grateful for the opportunity to be overworked.\n\nSetting boundaries in this context isn't just personal wellness. It's a form of resistance.\n\nIt's refusing to participate in systems that extract our labor while undervaluing our humanity.\n\nIt's modeling for others that excellence and boundaries can coexist.\n\n## Taking Action This Week\n\n1. **Audit your current commitments.** What are you doing that isn't actually your job?\n\n2. **Identify one recurring request you can redirect.** Not reject—redirect.\n\n3. **Practice one boundary phrase.** Say it out loud. Let it feel uncomfortable. Then use it.\n\n4. **Schedule recovery.** Not as a reward for finishing everything. Now. As a non-negotiable.\n\n## Closing Reflection\n\nYou've spent years proving you can handle anything.\n\nMaybe it's time to prove you can protect something—yourself.\n\nNot because you can't keep going.\n\nBut because you deserve a career and a life that doesn't require your depletion to function.\n\nYou can be dependable and boundaried.\n\nYou can be excellent and protected.\n\nThe dependable one's dilemma has a solution.\n\nIt starts with you deciding that your sustainability matters as much as your capability.",
+      "tripleS": {
+        "stop": {
+          "hook": "The Dependable One's Dilemma: When Your Competence Becomes Your Cage",
+          "fiveC": "conflict"
+        },
+        "stay": {
+          "story": "Deep exploration of how professional excellence can become a trap, with cultural context specific to Black women's experiences and practical frameworks for change."
+        },
+        "share": {
+          "takeaways": [
+            "Your value as a person is not determined by your availability as a resource",
+            "Setting boundaries is a form of resistance against extractive systems",
+            "You can be dependable and boundaried simultaneously"
+          ],
+          "cta": "What's one boundary you've been avoiding that could change your relationship with work?"
+        }
+      },
+      "soft": {
+        "separate": "Detailed exploration of separating identity from productivity",
+        "own": "Frameworks for understanding actual role boundaries",
+        "filter": "Practical tools for filtering requests through sustainability",
+        "thrive": "Systems-building approach to sustainable excellence"
+      },
+      "hashtags": [
+        "#SoftMelanin",
+        "#SoftnessIsPower",
+        "#BoundariesAreSoftness",
+        "#BlackWomenLead",
+        "#SoftLifeCoaching"
+      ],
+      "seoTags": [
+        "workplace boundaries",
+        "Black women leadership",
+        "burnout prevention",
+        "professional development",
+        "work-life balance",
+        "emotional labor",
+        "career sustainability"
+      ],
+      "visual": {
+        "prompt": "A Black woman professional in a moment of empowered reflection, transitioning from a crowded desk full of demands to a clear, organized space where she is centered and calm. Split composition showing transformation. Style: editorial narrative photography, warm earth tones, empowering and aspirational.",
+        "palette": ["#6e3f2b", "#a6683f", "#d2955e"],
+        "quoteCardTextOptions": [
+          "Your competence is not a cage.",
+          "Excellence and boundaries can coexist.",
+          "Sustainability matters as much as capability."
+        ]
+      },
+      "productMentions": [
+        {
+          "offering": "plush_boost",
+          "placement": "body",
+          "text": "If you're ready to build these boundaries with support, our Plush Boost coaching program provides the framework and accountability many overextended professionals need to make sustainable change."
+        }
+      ],
+      "growth": {
+        "bestPostingTimes": [
+          "Sunday 10:00 AM EST",
+          "Tuesday 7:00 AM EST"
+        ],
+        "repurposingIdeas": [
+          "Extract 5-7 LinkedIn posts from key sections",
+          "Create a 'Boundary Scripts' downloadable PDF lead magnet",
+          "Develop a companion email series for new subscribers",
+          "Record as a podcast episode",
+          "Create quote graphics from key phrases"
+        ]
+      },
+      "qa": {
+        "authenticityPass": true,
+        "brandVoicePass": true,
+        "culturalSensitivityPass": true,
+        "businessRelevancePass": true,
+        "errors": []
+      }
+    }
+  ]
+}
