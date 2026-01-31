@@ -216,7 +216,9 @@ function LibraryCard({
   isCopied: boolean;
 }) {
   const fullContent = `${artifact.hook}\n\n${artifact.body}`;
-  const qaPass = artifact.qa.errors.length === 0;
+  const qaErrors = Array.isArray(artifact.qa?.errors) ? artifact.qa.errors : [];
+  const qaPass = qaErrors.length === 0;
+  const hashtags = Array.isArray(artifact.hashtags) ? artifact.hashtags : [];
 
   return (
     <Card className="overflow-hidden hover:shadow-md transition-shadow">
@@ -238,14 +240,14 @@ function LibraryCard({
         <p className="text-xs text-muted-foreground line-clamp-2">{artifact.body.slice(0, 100)}...</p>
 
         <div className="flex flex-wrap gap-1">
-          {artifact.hashtags.slice(0, 3).map((tag, i) => (
+          {hashtags.slice(0, 3).map((tag, i) => (
             <Badge key={i} variant="secondary" className="text-xs">
               {tag}
             </Badge>
           ))}
-          {artifact.hashtags.length > 3 && (
+          {hashtags.length > 3 && (
             <Badge variant="outline" className="text-xs">
-              +{artifact.hashtags.length - 3}
+              +{hashtags.length - 3}
             </Badge>
           )}
         </div>
@@ -270,6 +272,14 @@ function LibraryCard({
 }
 
 function ArtifactDetail({ artifact }: { artifact: ContentArtifact }) {
+  // Safely get arrays with fallbacks
+  const hashtags = Array.isArray(artifact.hashtags) ? artifact.hashtags : [];
+  const takeaways = Array.isArray(artifact.tripleS?.share?.takeaways) ? artifact.tripleS.share.takeaways : [];
+  const palette = Array.isArray(artifact.visual?.palette) ? artifact.visual.palette : [];
+  const quoteCards = Array.isArray(artifact.visual?.quoteCardTextOptions) ? artifact.visual.quoteCardTextOptions : [];
+  const postingTimes = Array.isArray(artifact.growth?.bestPostingTimes) ? artifact.growth.bestPostingTimes : [];
+  const repurposingIdeas = Array.isArray(artifact.growth?.repurposingIdeas) ? artifact.growth.repurposingIdeas : [];
+
   return (
     <Tabs defaultValue="content" className="mt-4">
       <TabsList className="w-full">
@@ -293,7 +303,7 @@ function ArtifactDetail({ artifact }: { artifact: ContentArtifact }) {
         <div>
           <h4 className="font-semibold text-sm text-muted-foreground mb-2">Hashtags</h4>
           <div className="flex flex-wrap gap-2">
-            {artifact.hashtags.map((tag, i) => (
+            {hashtags.map((tag, i) => (
               <Badge key={i} variant="secondary">{tag}</Badge>
             ))}
           </div>
@@ -305,20 +315,20 @@ function ArtifactDetail({ artifact }: { artifact: ContentArtifact }) {
           <h4 className="font-semibold text-sm text-muted-foreground mb-2">Triple S Method</h4>
           <div className="space-y-3 bg-muted p-4 rounded-md">
             <div>
-              <span className="font-medium text-brand-primary">STOP:</span> {artifact.tripleS.stop.hook}
-              <Badge className="ml-2" variant="outline">{artifact.tripleS.stop.fiveC}</Badge>
+              <span className="font-medium text-brand-primary">STOP:</span> {artifact.tripleS?.stop?.hook || "N/A"}
+              <Badge className="ml-2" variant="outline">{artifact.tripleS?.stop?.fiveC || "N/A"}</Badge>
             </div>
             <div>
-              <span className="font-medium text-brand-primary">STAY:</span> {artifact.tripleS.stay.story}
+              <span className="font-medium text-brand-primary">STAY:</span> {artifact.tripleS?.stay?.story || "N/A"}
             </div>
             <div>
               <span className="font-medium text-brand-primary">SHARE:</span>
               <ul className="list-disc list-inside ml-4 mt-1">
-                {artifact.tripleS.share.takeaways.map((t, i) => (
+                {takeaways.map((t, i) => (
                   <li key={i} className="text-sm">{t}</li>
                 ))}
               </ul>
-              <p className="mt-2 text-sm italic">CTA: {artifact.tripleS.share.cta}</p>
+              <p className="mt-2 text-sm italic">CTA: {artifact.tripleS?.share?.cta || "N/A"}</p>
             </div>
           </div>
         </div>
@@ -349,13 +359,13 @@ function ArtifactDetail({ artifact }: { artifact: ContentArtifact }) {
         <div>
           <h4 className="font-semibold text-sm text-muted-foreground mb-2">AI Image Prompt</h4>
           <div className="bg-muted p-4 rounded-md text-sm">
-            {artifact.visual.prompt}
+            {artifact.visual?.prompt || "No prompt available"}
           </div>
         </div>
         <div>
           <h4 className="font-semibold text-sm text-muted-foreground mb-2">Brand Palette</h4>
           <div className="flex gap-2">
-            {artifact.visual.palette.map((color, i) => (
+            {palette.map((color, i) => (
               <div key={i} className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-md border" style={{ backgroundColor: color }} />
                 <span className="text-xs font-mono">{color}</span>
@@ -366,7 +376,7 @@ function ArtifactDetail({ artifact }: { artifact: ContentArtifact }) {
         <div>
           <h4 className="font-semibold text-sm text-muted-foreground mb-2">Quote Card Options</h4>
           <div className="space-y-2">
-            {artifact.visual.quoteCardTextOptions.map((quote, i) => (
+            {quoteCards.map((quote, i) => (
               <div key={i} className="bg-muted p-3 rounded-md text-sm italic">"{quote}"</div>
             ))}
           </div>
@@ -377,7 +387,7 @@ function ArtifactDetail({ artifact }: { artifact: ContentArtifact }) {
         <div>
           <h4 className="font-semibold text-sm text-muted-foreground mb-2">Best Posting Times</h4>
           <div className="flex flex-wrap gap-2">
-            {artifact.growth.bestPostingTimes.map((time, i) => (
+            {postingTimes.map((time, i) => (
               <Badge key={i} variant="outline">{time}</Badge>
             ))}
           </div>
@@ -385,7 +395,7 @@ function ArtifactDetail({ artifact }: { artifact: ContentArtifact }) {
         <div>
           <h4 className="font-semibold text-sm text-muted-foreground mb-2">Repurposing Ideas</h4>
           <ul className="list-disc list-inside space-y-1">
-            {artifact.growth.repurposingIdeas.map((idea, i) => (
+            {repurposingIdeas.map((idea, i) => (
               <li key={i} className="text-sm">{idea}</li>
             ))}
           </ul>

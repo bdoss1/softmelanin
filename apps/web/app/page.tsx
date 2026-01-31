@@ -302,8 +302,8 @@ export default function Home() {
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
                   <span>{PLATFORM_CONFIGS[selectedArtifact.platform].name}</span>
-                  <Badge variant={selectedArtifact.qa.errors.length === 0 ? "success" : "warning"}>
-                    {selectedArtifact.qa.errors.length === 0 ? "QA Passed" : "QA Issues"}
+                  <Badge variant={(Array.isArray(selectedArtifact.qa?.errors) ? selectedArtifact.qa.errors : []).length === 0 ? "success" : "warning"}>
+                    {(Array.isArray(selectedArtifact.qa?.errors) ? selectedArtifact.qa.errors : []).length === 0 ? "QA Passed" : "QA Issues"}
                   </Badge>
                 </DialogTitle>
                 <DialogDescription>
@@ -334,7 +334,9 @@ function ArtifactCard({
   isCopied: boolean;
 }) {
   const fullContent = `${artifact.hook}\n\n${artifact.body}`;
-  const qaPass = artifact.qa.errors.length === 0;
+  const qaErrors = Array.isArray(artifact.qa?.errors) ? artifact.qa.errors : [];
+  const qaPass = qaErrors.length === 0;
+  const hashtags = Array.isArray(artifact.hashtags) ? artifact.hashtags : [];
 
   return (
     <Card className="overflow-hidden">
@@ -362,7 +364,7 @@ function ArtifactCard({
 
         {/* Hashtags */}
         <div className="flex flex-wrap gap-1">
-          {artifact.hashtags.map((tag, i) => (
+          {hashtags.map((tag, i) => (
             <Badge key={i} variant="secondary" className="text-xs">
               {tag}
             </Badge>
@@ -390,6 +392,17 @@ function ArtifactCard({
 
 // Artifact Detail Component
 function ArtifactDetail({ artifact }: { artifact: ContentArtifact }) {
+  // Safely get arrays with fallbacks
+  const hashtags = Array.isArray(artifact.hashtags) ? artifact.hashtags : [];
+  const seoTags = Array.isArray(artifact.seoTags) ? artifact.seoTags : [];
+  const takeaways = Array.isArray(artifact.tripleS?.share?.takeaways) ? artifact.tripleS.share.takeaways : [];
+  const palette = Array.isArray(artifact.visual?.palette) ? artifact.visual.palette : [];
+  const quoteCards = Array.isArray(artifact.visual?.quoteCardTextOptions) ? artifact.visual.quoteCardTextOptions : [];
+  const postingTimes = Array.isArray(artifact.growth?.bestPostingTimes) ? artifact.growth.bestPostingTimes : [];
+  const repurposingIdeas = Array.isArray(artifact.growth?.repurposingIdeas) ? artifact.growth.repurposingIdeas : [];
+  const abVariants = Array.isArray(artifact.growth?.abVariants) ? artifact.growth.abVariants : [];
+  const qaErrors = Array.isArray(artifact.qa?.errors) ? artifact.qa.errors : [];
+
   return (
     <Tabs defaultValue="content" className="mt-4">
       <TabsList className="w-full">
@@ -414,16 +427,16 @@ function ArtifactDetail({ artifact }: { artifact: ContentArtifact }) {
         <div>
           <h4 className="font-semibold text-sm text-muted-foreground mb-2">Hashtags</h4>
           <div className="flex flex-wrap gap-2">
-            {artifact.hashtags.map((tag, i) => (
+            {hashtags.map((tag, i) => (
               <Badge key={i} variant="secondary">{tag}</Badge>
             ))}
           </div>
         </div>
-        {artifact.seoTags && artifact.seoTags.length > 0 && (
+        {seoTags.length > 0 && (
           <div>
             <h4 className="font-semibold text-sm text-muted-foreground mb-2">SEO Tags</h4>
             <div className="flex flex-wrap gap-2">
-              {artifact.seoTags.map((tag, i) => (
+              {seoTags.map((tag, i) => (
                 <Badge key={i} variant="outline">{tag}</Badge>
               ))}
             </div>
@@ -436,20 +449,20 @@ function ArtifactDetail({ artifact }: { artifact: ContentArtifact }) {
           <h4 className="font-semibold text-sm text-muted-foreground mb-2">Triple S Method</h4>
           <div className="space-y-3 bg-muted p-4 rounded-md">
             <div>
-              <span className="font-medium text-brand-primary">STOP:</span> {artifact.tripleS.stop.hook}
-              <Badge className="ml-2" variant="outline">{artifact.tripleS.stop.fiveC}</Badge>
+              <span className="font-medium text-brand-primary">STOP:</span> {artifact.tripleS?.stop?.hook || "N/A"}
+              <Badge className="ml-2" variant="outline">{artifact.tripleS?.stop?.fiveC || "N/A"}</Badge>
             </div>
             <div>
-              <span className="font-medium text-brand-primary">STAY:</span> {artifact.tripleS.stay.story}
+              <span className="font-medium text-brand-primary">STAY:</span> {artifact.tripleS?.stay?.story || "N/A"}
             </div>
             <div>
               <span className="font-medium text-brand-primary">SHARE:</span>
               <ul className="list-disc list-inside ml-4 mt-1">
-                {artifact.tripleS.share.takeaways.map((t, i) => (
+                {takeaways.map((t, i) => (
                   <li key={i} className="text-sm">{t}</li>
                 ))}
               </ul>
-              <p className="mt-2 text-sm italic">CTA: {artifact.tripleS.share.cta}</p>
+              <p className="mt-2 text-sm italic">CTA: {artifact.tripleS?.share?.cta || "N/A"}</p>
             </div>
           </div>
         </div>
@@ -480,13 +493,13 @@ function ArtifactDetail({ artifact }: { artifact: ContentArtifact }) {
         <div>
           <h4 className="font-semibold text-sm text-muted-foreground mb-2">AI Image Prompt</h4>
           <div className="bg-muted p-4 rounded-md text-sm">
-            {artifact.visual.prompt}
+            {artifact.visual?.prompt || "No prompt available"}
           </div>
         </div>
         <div>
           <h4 className="font-semibold text-sm text-muted-foreground mb-2">Brand Palette</h4>
           <div className="flex gap-2">
-            {artifact.visual.palette.map((color, i) => (
+            {palette.map((color, i) => (
               <div key={i} className="flex items-center gap-2">
                 <div
                   className="w-8 h-8 rounded-md border"
@@ -500,7 +513,7 @@ function ArtifactDetail({ artifact }: { artifact: ContentArtifact }) {
         <div>
           <h4 className="font-semibold text-sm text-muted-foreground mb-2">Quote Card Options</h4>
           <div className="space-y-2">
-            {artifact.visual.quoteCardTextOptions.map((quote, i) => (
+            {quoteCards.map((quote, i) => (
               <div key={i} className="bg-muted p-3 rounded-md text-sm italic">
                 "{quote}"
               </div>
@@ -513,7 +526,7 @@ function ArtifactDetail({ artifact }: { artifact: ContentArtifact }) {
         <div>
           <h4 className="font-semibold text-sm text-muted-foreground mb-2">Best Posting Times</h4>
           <div className="flex flex-wrap gap-2">
-            {artifact.growth.bestPostingTimes.map((time, i) => (
+            {postingTimes.map((time, i) => (
               <Badge key={i} variant="outline">{time}</Badge>
             ))}
           </div>
@@ -521,16 +534,16 @@ function ArtifactDetail({ artifact }: { artifact: ContentArtifact }) {
         <div>
           <h4 className="font-semibold text-sm text-muted-foreground mb-2">Repurposing Ideas</h4>
           <ul className="list-disc list-inside space-y-1">
-            {artifact.growth.repurposingIdeas.map((idea, i) => (
+            {repurposingIdeas.map((idea, i) => (
               <li key={i} className="text-sm">{idea}</li>
             ))}
           </ul>
         </div>
-        {artifact.growth.abVariants && artifact.growth.abVariants.length > 0 && (
+        {abVariants.length > 0 && (
           <div>
             <h4 className="font-semibold text-sm text-muted-foreground mb-2">A/B Hook Variants</h4>
             <div className="space-y-2">
-              {artifact.growth.abVariants.map((variant, i) => (
+              {abVariants.map((variant, i) => (
                 <div key={i} className="bg-muted p-3 rounded-md">
                   <Badge className="mb-2">{variant.label}</Badge>
                   <p className="text-sm">{variant.hook}</p>
@@ -543,18 +556,18 @@ function ArtifactDetail({ artifact }: { artifact: ContentArtifact }) {
 
       <TabsContent value="qa" className="space-y-4 mt-4">
         <div className="grid grid-cols-2 gap-3">
-          <QABadge label="Authenticity" pass={artifact.qa.authenticityPass} />
-          <QABadge label="Brand Voice" pass={artifact.qa.brandVoicePass} />
-          <QABadge label="Cultural Sensitivity" pass={artifact.qa.culturalSensitivityPass} />
-          <QABadge label="Business Relevance" pass={artifact.qa.businessRelevancePass} />
+          <QABadge label="Authenticity" pass={artifact.qa?.authenticityPass ?? false} />
+          <QABadge label="Brand Voice" pass={artifact.qa?.brandVoicePass ?? false} />
+          <QABadge label="Cultural Sensitivity" pass={artifact.qa?.culturalSensitivityPass ?? false} />
+          <QABadge label="Business Relevance" pass={artifact.qa?.businessRelevancePass ?? false} />
         </div>
-        {artifact.qa.errors.length > 0 && (
+        {qaErrors.length > 0 && (
           <Alert variant="warning">
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>Validation Issues</AlertTitle>
             <AlertDescription>
               <ul className="list-disc list-inside space-y-1 mt-2">
-                {artifact.qa.errors.map((error, i) => (
+                {qaErrors.map((error, i) => (
                   <li key={i} className="text-sm">{error}</li>
                 ))}
               </ul>
