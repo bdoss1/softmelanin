@@ -67,28 +67,43 @@ export default function Home() {
     setArtifacts([]);
 
     try {
-      const response = await fetch("/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          seedIdea,
-          monthlyTheme: monthlyTheme || undefined,
-          segments: selectedSegments,
-          platforms: selectedPlatforms,
-          includeProductMentions: includeProducts,
-          generateABVariants: generateVariants,
-        }),
-      });
+      const allArtifacts: ContentArtifact[] = [];
+      const allErrors: string[] = [];
 
-      const data = await response.json();
+      for (const platform of selectedPlatforms) {
+        const response = await fetch("/api/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            seedIdea,
+            monthlyTheme: monthlyTheme || undefined,
+            segments: selectedSegments,
+            platforms: [platform],
+            includeProductMentions: includeProducts,
+            generateABVariants: generateVariants,
+          }),
+        });
 
-      if (data.success) {
-        setArtifacts(data.artifacts);
-        if (data.errors && data.errors.length > 0) {
-          setErrors(data.errors);
+        if (!response.ok) {
+          allErrors.push(`${platform}: Request failed (${response.status})`);
+          continue;
         }
-      } else {
-        setErrors(data.errors || ["Generation failed. Please try again."]);
+
+        const data = await response.json();
+
+        if (data.success) {
+          allArtifacts.push(...data.artifacts);
+          if (data.errors && data.errors.length > 0) {
+            allErrors.push(...data.errors);
+          }
+        } else {
+          allErrors.push(...(data.errors || [`${platform}: Generation failed. Please try again.`]));
+        }
+      }
+
+      setArtifacts(allArtifacts);
+      if (allErrors.length > 0) {
+        setErrors(allErrors);
       }
     } catch (error) {
       setErrors(["Network error. Please check your connection and try again."]);
