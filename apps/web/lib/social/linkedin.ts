@@ -2,6 +2,8 @@
 // LinkedIn API Integration Service
 // ============================================================================
 
+import "server-only";
+
 import {
   LINKEDIN_API_CONFIG,
   LinkedInProfile,
@@ -39,9 +41,9 @@ export class LinkedInService {
 
   constructor(config?: Partial<LinkedInApiConfig>) {
     this.config = {
-      clientId: config?.clientId || process.env.LINKEDIN_CLIENT_ID || "",
-      clientSecret: config?.clientSecret || process.env.LINKEDIN_CLIENT_SECRET || "",
-      redirectUri: config?.redirectUri || process.env.LINKEDIN_REDIRECT_URI || "",
+      clientId: config?.clientId || process.env["LINKEDIN_CLIENT_ID"] || "",
+      clientSecret: config?.clientSecret || process.env["LINKEDIN_CLIENT_SECRET"] || "",
+      redirectUri: config?.redirectUri || process.env["LINKEDIN_REDIRECT_URI"] || "",
     };
   }
 

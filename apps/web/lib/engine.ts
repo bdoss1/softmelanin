@@ -1,22 +1,24 @@
+import "server-only";
+
 import { ContentGenerator, createLLMProvider, LLMConfig } from "@soft-melanin/engine";
 
 // Get LLM configuration from environment
 function getLLMConfig(): LLMConfig {
-  const provider = (process.env.LLM_PROVIDER || "mock") as LLMConfig["provider"];
+  const provider = (process.env["LLM_PROVIDER"] || "mock") as LLMConfig["provider"];
 
   switch (provider) {
     case "openai":
       return {
         provider: "openai",
-        apiKey: process.env.OPENAI_API_KEY,
-        model: process.env.OPENAI_MODEL || "gpt-4-turbo-preview",
-        baseUrl: process.env.OPENAI_BASE_URL,
+        apiKey: process.env["OPENAI_API_KEY"],
+        model: process.env["OPENAI_MODEL"] || "gpt-4-turbo-preview",
+        baseUrl: process.env["OPENAI_BASE_URL"],
       };
     case "anthropic":
       return {
         provider: "anthropic",
-        apiKey: process.env.ANTHROPIC_API_KEY,
-        model: process.env.ANTHROPIC_MODEL || "claude-3-sonnet-20240229",
+        apiKey: process.env["ANTHROPIC_API_KEY"],
+        model: process.env["ANTHROPIC_MODEL"] || "claude-3-sonnet-20240229",
       };
     case "mock":
     default:

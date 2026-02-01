@@ -2,6 +2,8 @@
 // Substack API Integration Service
 // ============================================================================
 
+import "server-only";
+
 import {
   SUBSTACK_API_CONFIG,
   SubstackPublication,
@@ -52,9 +54,9 @@ export class SubstackService {
 
   constructor(config?: Partial<SubstackApiConfig>) {
     this.config = {
-      email: config?.email || process.env.SUBSTACK_EMAIL || "",
-      apiKey: config?.apiKey || process.env.SUBSTACK_API_KEY || "",
-      subdomain: config?.subdomain || process.env.SUBSTACK_SUBDOMAIN || "",
+      email: config?.email || process.env["SUBSTACK_EMAIL"] || "",
+      apiKey: config?.apiKey || process.env["SUBSTACK_API_KEY"] || "",
+      subdomain: config?.subdomain || process.env["SUBSTACK_SUBDOMAIN"] || "",
     };
   }
 
