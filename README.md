@@ -157,23 +157,23 @@ pnpm dev
 
 ```env
 # Database
-DATABASE_URL="file:./dev.db"
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DB?schema=public"
 
 # LLM Provider: "openai", "anthropic", or "mock"
 LLM_PROVIDER="mock"
 
 # OpenAI (if using)
 OPENAI_API_KEY="sk-..."
-OPENAI_MODEL="gpt-4-turbo-preview"
+OPENAI_MODEL="OPENAI_MODEL_NAME"
 
 # Anthropic (if using)
 ANTHROPIC_API_KEY="sk-ant-..."
-ANTHROPIC_MODEL="claude-3-sonnet-20240229"
+ANTHROPIC_MODEL="ANTHROPIC_MODEL_NAME"
 
 # LinkedIn OAuth (for social posting)
-LINKEDIN_CLIENT_ID="your_client_id"
-LINKEDIN_CLIENT_SECRET="your_client_secret"
-LINKEDIN_REDIRECT_URI="http://localhost:3000/auth/callback/linkedin"
+LINKEDIN_CLIENT_ID="LINKEDIN_CLIENT_ID_VALUE"
+LINKEDIN_CLIENT_SECRET="LINKEDIN_CLIENT_SECRET_VALUE"
+LINKEDIN_REDIRECT_URI="LINKEDIN_REDIRECT_URI_VALUE"
 ```
 
 ## Usage

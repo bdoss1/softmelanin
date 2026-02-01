@@ -52,9 +52,9 @@ Request the following scopes in your app:
 Add these to your `.env` file:
 
 ```env
-LINKEDIN_CLIENT_ID="your_client_id_here"
-LINKEDIN_CLIENT_SECRET="your_client_secret_here"
-LINKEDIN_REDIRECT_URI="http://localhost:3000/auth/callback/linkedin"
+LINKEDIN_CLIENT_ID="LINKEDIN_CLIENT_ID_VALUE"
+LINKEDIN_CLIENT_SECRET="LINKEDIN_CLIENT_SECRET_VALUE"
+LINKEDIN_REDIRECT_URI="LINKEDIN_REDIRECT_URI_VALUE"
 ```
 
 ### Connecting Your Account
