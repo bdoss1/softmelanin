@@ -4,12 +4,21 @@ import { getSharedGenerator } from "@/lib/engine";
 import prisma from "@/lib/prisma";
 
 export async function POST(request: NextRequest) {
+  const requestId = crypto.randomUUID();
+  const startedAt = Date.now();
   try {
+    console.log("[generate]", { requestId, event: "request_start" });
     const body = await request.json();
+    console.log("[generate]", { requestId, event: "request_body_received" });
 
     // Validate request
     const parseResult = GenerationRequestSchema.safeParse(body);
     if (!parseResult.success) {
+      console.warn("[generate]", {
+        requestId,
+        event: "validation_failed",
+        errors: parseResult.error.errors.map((e) => `${e.path.join(".")}: ${e.message}`),
+      });
       return NextResponse.json(
         {
           success: false,
@@ -20,18 +29,39 @@ export async function POST(request: NextRequest) {
     }
 
     const validatedRequest = parseResult.data;
+    console.log("[generate]", {
+      requestId,
+      event: "validation_passed",
+      segments: validatedRequest.segments,
+      platforms: validatedRequest.platforms,
+    });
 
     // Get the content generator
     const generator = getSharedGenerator();
+    console.log("[generate]", { requestId, event: "generator_ready" });
 
     // Generate content
     const response = await generator.generate(validatedRequest);
+    console.log("[generate]", {
+      requestId,
+      event: "generation_complete",
+      success: response.success,
+      artifactCount: response.artifacts?.length ?? 0,
+      errorCount: response.errors?.length ?? 0,
+    });
 
     // Save artifacts to database
     if (response.artifacts.length > 0) {
+      console.log("[generate]", { requestId, event: "db_write_start" });
       const artifactIds: string[] = [];
 
       for (const artifact of response.artifacts) {
+        console.log("[generate]", {
+          requestId,
+          event: "db_write_artifact",
+          platform: artifact.platform,
+          segment: artifact.segment,
+        });
         const saved = await prisma.contentArtifact.create({
           data: {
             platform: artifact.platform,
@@ -58,6 +88,7 @@ export async function POST(request: NextRequest) {
       }
 
       // Save the generation session
+      console.log("[generate]", { requestId, event: "db_write_session" });
       await prisma.generationSession.create({
         data: {
           seedIdea: validatedRequest.seedIdea,
@@ -71,11 +102,22 @@ export async function POST(request: NextRequest) {
           errors: response.errors ? JSON.stringify(response.errors) : null,
         },
       });
+      console.log("[generate]", { requestId, event: "db_write_complete", artifactCount: artifactIds.length });
     }
 
+    console.log("[generate]", {
+      requestId,
+      event: "request_complete",
+      durationMs: Date.now() - startedAt,
+    });
     return NextResponse.json(response);
   } catch (error) {
-    console.error("Generation error:", error);
+    console.error("[generate]", {
+      requestId,
+      event: "request_error",
+      message: error instanceof Error ? error.message : "Unknown error",
+      stack: error instanceof Error ? error.stack : undefined,
+    });
     return NextResponse.json(
       {
         success: false,
