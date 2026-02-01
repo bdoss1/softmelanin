@@ -6,6 +6,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { CalendarQuerySchema } from "@soft-melanin/shared";
 
+export const dynamic = "force-dynamic";
+
 // Type for Prisma scheduled post with relations
 interface ScheduledPostWithRelations {
   id: string;
