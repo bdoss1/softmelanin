@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  let artifacts = [];
+  let artifacts: Awaited<ReturnType<typeof prisma.contentArtifact.findMany>> = [];
   if (job.artifactIds) {
     const ids = JSON.parse(job.artifactIds) as string[];
     if (ids.length > 0) {

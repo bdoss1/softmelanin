@@ -5,7 +5,7 @@ import {
   Platform,
   Segment,
   BRAND_PALETTE
-} from "@soft-melanin/shared";
+} from "../../shared/src";
 import { LLMProvider } from "./llm";
 import { buildGenerationPrompt, buildRewritePrompt } from "./prompts";
 import { validateArtifact, FullValidationResult } from "./validators";

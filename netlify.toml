@@ -1,2 +1,11 @@
+[build]
+  command = "pnpm -w exec prisma generate --schema=apps/web/prisma/schema.prisma && turbo run build --filter @soft-melanin/web"
+  publish = "apps/web/.next"
+
 [build.environment]
   SECRETS_SCAN_OMIT_KEYS = "NODE_ENV,LLM_PROVIDER,OPENAI_BASE_URL,OPENAI_MODEL,ANTHROPIC_MODEL,LINKEDIN_REDIRECT_URI"
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["packages/shared/**", "packages/engine/**"]
+  external_node_modules = ["@prisma/client"]

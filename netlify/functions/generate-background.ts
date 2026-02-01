@@ -1,7 +1,7 @@
 import type { Handler } from "@netlify/functions";
-import { GenerationRequestSchema } from "@soft-melanin/shared";
-import { getContentGenerator } from "../../apps/web/lib/engine";
-import prisma from "../../apps/web/lib/prisma";
+import { GenerationRequestSchema } from "../../packages/shared/src/schemas";
+import { getContentGenerator } from "./lib/engine";
+import prisma from "./lib/prisma";
 
 export const handler: Handler = async (event) => {
   if (event.httpMethod !== "POST") {
