@@ -11,6 +11,11 @@
     "db:push": "pnpm --filter @soft-melanin/web db:push",
     "db:studio": "pnpm --filter @soft-melanin/web db:studio"
   },
+  "dependencies": {
+    "@netlify/functions": "^2.4.0",
+    "@prisma/client": "^5.10.0",
+    "zod": "^3.22.4"
+  },
   "devDependencies": {
     "prisma": "^5.10.0",
     "turbo": "^2.0.0",

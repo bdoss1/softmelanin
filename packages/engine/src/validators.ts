@@ -4,7 +4,7 @@ import {
   PLATFORM_CONFIGS,
   PRIMARY_HASHTAGS,
   QAValidation
-} from "@soft-melanin/shared";
+} from "../../shared/src";
 
 // ============================================================================
 // Deterministic Validators (Hard-Fail)

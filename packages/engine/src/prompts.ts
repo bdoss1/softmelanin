@@ -7,7 +7,7 @@ import {
   CADENCE_RULES,
   PRIMARY_HASHTAGS,
   SECONDARY_HASHTAGS
-} from "@soft-melanin/shared";
+} from "../../shared/src";
 
 // ============================================================================
 // System Prompt Components
