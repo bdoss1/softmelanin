@@ -56,7 +56,7 @@ export class OpenAIProvider implements LLMProvider {
           }
         ],
         temperature: options?.temperature ?? 0.7,
-        max_tokens: options?.maxTokens ?? 4000,
+        max_completion_tokens: options?.maxTokens ?? 4000,
         response_format: { type: "json_object" }
       })
     });
