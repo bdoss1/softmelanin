@@ -1,12 +1,12 @@
 // Soft Melanin MCP - Database Schema
-// Using SQLite for simplicity and portability
+// Using PostgreSQL (Neon) in production
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
