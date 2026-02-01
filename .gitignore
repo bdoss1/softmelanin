@@ -46,3 +46,4 @@ prisma/*.db-journal
 # Misc
 *.tsbuildinfo
 .vercel
+examples/sample_outputs.json
