@@ -12,6 +12,7 @@
     "db:studio": "pnpm --filter @soft-melanin/web db:studio"
   },
   "devDependencies": {
+    "prisma": "^5.10.0",
     "turbo": "^2.0.0",
     "typescript": "^5.3.0"
   },
