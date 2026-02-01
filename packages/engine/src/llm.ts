@@ -37,6 +37,9 @@ export class OpenAIProvider implements LLMProvider {
   }
 
   async generate(prompt: string, options?: LLMOptions): Promise<string> {
+    const model = options?.model || this.model;
+    const supportsCustomTemperature = !model.startsWith("gpt-5");
+
     const response = await fetch(`${this.baseUrl}/chat/completions`, {
       method: "POST",
       headers: {
@@ -44,7 +47,7 @@ export class OpenAIProvider implements LLMProvider {
         "Authorization": `Bearer ${this.apiKey}`
       },
       body: JSON.stringify({
-        model: options?.model || this.model,
+        model,
         messages: [
           {
             role: "system",
@@ -55,7 +58,7 @@ export class OpenAIProvider implements LLMProvider {
             content: prompt
           }
         ],
-        temperature: options?.temperature ?? 0.7,
+        ...(supportsCustomTemperature ? { temperature: options?.temperature ?? 0.7 } : {}),
         max_completion_tokens: options?.maxTokens ?? 4000,
         response_format: { type: "json_object" }
       })
