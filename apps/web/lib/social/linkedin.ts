@@ -55,12 +55,12 @@ export class LinkedInService {
   // OAuth Flow
   // ============================================================================
 
-  getAuthorizationUrl(state?: string): string {
+  getAuthorizationUrl(state?: string, scopes?: string[]): string {
     const params = new URLSearchParams({
       response_type: "code",
       client_id: this.config.clientId,
       redirect_uri: this.config.redirectUri,
-      scope: LINKEDIN_API_CONFIG.scopes.join(" "),
+      scope: (scopes || LINKEDIN_API_CONFIG.scopes).join(" "),
       ...(state && { state }),
     });
 

@@ -22,7 +22,12 @@ export async function GET(request: NextRequest) {
       })
     ).toString("base64");
 
-    const authUrl = linkedInService.getAuthorizationUrl(state);
+    const baseScopes = ["openid", "profile", "w_member_social"];
+    const scopes =
+      accountType === "company"
+        ? [...baseScopes, "r_organization_social", "w_organization_social"]
+        : baseScopes;
+    const authUrl = linkedInService.getAuthorizationUrl(state, scopes);
 
     return NextResponse.redirect(authUrl);
   } catch (error) {
