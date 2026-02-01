@@ -316,3 +316,200 @@ export const CADENCE_RULES = [
   "Never sound robotic",
   "Avoid generic influencer tone"
 ] as const;
+
+// ============================================================================
+// Social Platform Types
+// ============================================================================
+
+export type SocialPlatform = "linkedin" | "substack";
+export type LinkedInAccountType = "founder" | "company";
+export type ScheduledPostStatus =
+  | "pending"
+  | "queued"
+  | "posting"
+  | "published"
+  | "failed"
+  | "cancelled";
+
+// ============================================================================
+// Social Account Types
+// ============================================================================
+
+export interface SocialAccount {
+  id: string;
+  platform: SocialPlatform;
+  accountType: string;
+  accountName: string;
+  accountId: string;
+  isActive: boolean;
+  lastSyncAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface LinkedInProfile {
+  id: string;
+  localizedFirstName: string;
+  localizedLastName: string;
+  profilePicture?: string;
+  vanityName?: string;
+}
+
+export interface LinkedInOrganization {
+  id: string;
+  localizedName: string;
+  logoUrl?: string;
+  vanityName?: string;
+}
+
+export interface SubstackPublication {
+  id: string;
+  name: string;
+  subdomain: string;
+  customDomain?: string;
+  logoUrl?: string;
+}
+
+// ============================================================================
+// Scheduled Post Types
+// ============================================================================
+
+export interface ScheduledPost {
+  id: string;
+  artifactId: string;
+  artifact?: ContentArtifact;
+  socialAccountId: string;
+  socialAccount?: SocialAccount;
+  scheduledFor: Date;
+  timezone: string;
+  status: ScheduledPostStatus;
+  publishedAt?: Date;
+  externalPostId?: string;
+  lastError?: string;
+  retryCount: number;
+  maxRetries: number;
+  notes?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface CreateScheduledPostRequest {
+  artifactId: string;
+  socialAccountId: string;
+  scheduledFor: string; // ISO date string
+  timezone?: string;
+  notes?: string;
+}
+
+export interface UpdateScheduledPostRequest {
+  scheduledFor?: string;
+  timezone?: string;
+  status?: ScheduledPostStatus;
+  notes?: string;
+}
+
+export interface ScheduleResponse {
+  success: boolean;
+  scheduledPost?: ScheduledPost;
+  error?: string;
+}
+
+// ============================================================================
+// Calendar Types
+// ============================================================================
+
+export interface CalendarDay {
+  date: Date;
+  isToday: boolean;
+  isCurrentMonth: boolean;
+  scheduledPosts: ScheduledPost[];
+}
+
+export interface CalendarWeek {
+  days: CalendarDay[];
+}
+
+export interface CalendarMonth {
+  year: number;
+  month: number;
+  weeks: CalendarWeek[];
+}
+
+// ============================================================================
+// Social Posting Types
+// ============================================================================
+
+export interface PostToLinkedInRequest {
+  artifactId: string;
+  socialAccountId: string;
+  immediate?: boolean;
+}
+
+export interface PostToSubstackRequest {
+  artifactId: string;
+  socialAccountId: string;
+  publishNow?: boolean;
+  sendEmail?: boolean;
+}
+
+export interface PostResult {
+  success: boolean;
+  platform: SocialPlatform;
+  externalPostId?: string;
+  externalUrl?: string;
+  error?: string;
+  rawResponse?: unknown;
+}
+
+// ============================================================================
+// OAuth Types
+// ============================================================================
+
+export interface OAuthConnectRequest {
+  platform: SocialPlatform;
+  accountType?: LinkedInAccountType;
+  redirectUri: string;
+}
+
+export interface OAuthCallbackData {
+  platform: SocialPlatform;
+  code: string;
+  state?: string;
+}
+
+export interface OAuthTokenResponse {
+  access_token: string;
+  refresh_token?: string;
+  expires_in?: number;
+  token_type: string;
+}
+
+// ============================================================================
+// Platform API Configs
+// ============================================================================
+
+export const LINKEDIN_API_CONFIG = {
+  authUrl: "https://www.linkedin.com/oauth/v2/authorization",
+  tokenUrl: "https://www.linkedin.com/oauth/v2/accessToken",
+  apiBaseUrl: "https://api.linkedin.com/v2",
+  scopes: ["openid", "profile", "w_member_social", "r_organization_social", "w_organization_social"],
+} as const;
+
+export const SUBSTACK_API_CONFIG = {
+  apiBaseUrl: "https://substack.com/api/v1",
+} as const;
+
+// ============================================================================
+// Posting Time Recommendations
+// ============================================================================
+
+export const OPTIMAL_POSTING_TIMES = {
+  linkedin: {
+    weekday: ["07:00", "08:00", "12:00", "17:00", "18:00"],
+    weekend: ["09:00", "10:00", "11:00"],
+  },
+  substack: {
+    weekday: ["06:00", "08:00", "10:00"],
+    weekend: ["08:00", "09:00", "10:00"],
+  },
+} as const;

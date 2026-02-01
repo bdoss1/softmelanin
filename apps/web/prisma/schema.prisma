@@ -51,6 +51,9 @@ model ContentArtifact {
   seedIdea     String?
   monthlyTheme String?
 
+  // Relations
+  scheduledPosts ScheduledPost[]
+
   // Indexes for efficient querying
   @@index([platform])
   @@index([segment])
@@ -137,4 +140,108 @@ model HashtagPerformance {
   // Performance metrics (to be populated from analytics)
   avgEngagement Float?
   avgReach      Float?
+}
+
+// ============================================================================
+// Social Account Connections
+// ============================================================================
+
+model SocialAccount {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Platform info
+  platform     String // linkedin, substack
+  accountType  String // founder, company (for LinkedIn)
+  accountName  String // Display name
+  accountId    String // External platform ID
+
+  // OAuth tokens (encrypted in production)
+  accessToken  String
+  refreshToken String?
+  tokenExpiry  DateTime?
+
+  // Connection status
+  isActive     Boolean @default(true)
+  lastSyncAt   DateTime?
+
+  // Relations
+  scheduledPosts ScheduledPost[]
+
+  @@unique([platform, accountId])
+  @@index([platform])
+  @@index([isActive])
+}
+
+// ============================================================================
+// Scheduled Posts
+// ============================================================================
+
+model ScheduledPost {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Content reference
+  artifactId String
+  artifact   ContentArtifact @relation(fields: [artifactId], references: [id], onDelete: Cascade)
+
+  // Social account
+  socialAccountId String
+  socialAccount   SocialAccount @relation(fields: [socialAccountId], references: [id], onDelete: Cascade)
+
+  // Scheduling
+  scheduledFor DateTime
+  timezone     String @default("America/New_York")
+
+  // Status tracking
+  status       String @default("pending") // pending, queued, posting, published, failed, cancelled
+  publishedAt  DateTime?
+  externalPostId String? // ID from the platform after publishing
+
+  // Error handling
+  lastError    String?
+  retryCount   Int @default(0)
+  maxRetries   Int @default(3)
+
+  // Metadata
+  notes        String?
+
+  @@index([status])
+  @@index([scheduledFor])
+  @@index([artifactId])
+  @@index([socialAccountId])
+}
+
+// ============================================================================
+// Post History (for analytics)
+// ============================================================================
+
+model PostHistory {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // References
+  scheduledPostId String?
+  artifactId      String
+  platform        String
+
+  // External data
+  externalPostId  String?
+  externalUrl     String?
+
+  // Engagement metrics (updated via webhook or polling)
+  impressions     Int?
+  likes           Int?
+  comments        Int?
+  shares          Int?
+  clicks          Int?
+
+  // Raw response from platform
+  rawResponse     String? // JSON
+
+  @@index([artifactId])
+  @@index([platform])
+  @@index([createdAt])
 }
