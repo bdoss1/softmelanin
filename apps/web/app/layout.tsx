@@ -45,6 +45,18 @@ export default function RootLayout({
                   >
                     Library
                   </a>
+                  <a
+                    href="/schedule"
+                    className="text-sm font-medium hover:text-brand-primary transition-colors"
+                  >
+                    Schedule
+                  </a>
+                  <a
+                    href="/settings/social"
+                    className="text-sm font-medium hover:text-brand-primary transition-colors"
+                  >
+                    Settings
+                  </a>
                 </nav>
               </div>
             </div>

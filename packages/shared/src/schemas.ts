@@ -173,3 +173,148 @@ export type QAValidationType = z.infer<typeof QAValidationSchema>;
 export type ContentArtifactType = z.infer<typeof ContentArtifactSchema>;
 export type GenerationRequestType = z.infer<typeof GenerationRequestSchema>;
 export type GenerationResponseType = z.infer<typeof GenerationResponseSchema>;
+
+// ============================================================================
+// Social Platform Schemas
+// ============================================================================
+
+export const SocialPlatformSchema = z.enum(["linkedin", "substack"]);
+export const LinkedInAccountTypeSchema = z.enum(["founder", "company"]);
+export const ScheduledPostStatusSchema = z.enum([
+  "pending",
+  "queued",
+  "posting",
+  "published",
+  "failed",
+  "cancelled",
+]);
+
+// ============================================================================
+// Social Account Schemas
+// ============================================================================
+
+export const SocialAccountSchema = z.object({
+  id: z.string(),
+  platform: SocialPlatformSchema,
+  accountType: z.string(),
+  accountName: z.string(),
+  accountId: z.string(),
+  isActive: z.boolean(),
+  lastSyncAt: z.date().optional(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+export const CreateSocialAccountSchema = z.object({
+  platform: SocialPlatformSchema,
+  accountType: z.string(),
+  accountName: z.string().min(1, "Account name is required"),
+  accountId: z.string().min(1, "Account ID is required"),
+  accessToken: z.string().min(1, "Access token is required"),
+  refreshToken: z.string().optional(),
+  tokenExpiry: z.date().optional(),
+});
+
+// ============================================================================
+// Scheduled Post Schemas
+// ============================================================================
+
+export const ScheduledPostSchema = z.object({
+  id: z.string(),
+  artifactId: z.string(),
+  socialAccountId: z.string(),
+  scheduledFor: z.date(),
+  timezone: z.string().default("America/New_York"),
+  status: ScheduledPostStatusSchema,
+  publishedAt: z.date().optional(),
+  externalPostId: z.string().optional(),
+  lastError: z.string().optional(),
+  retryCount: z.number().default(0),
+  maxRetries: z.number().default(3),
+  notes: z.string().optional(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+export const CreateScheduledPostSchema = z.object({
+  artifactId: z.string().min(1, "Artifact ID is required"),
+  socialAccountId: z.string().min(1, "Social account ID is required"),
+  scheduledFor: z.string().refine(
+    (val) => !isNaN(Date.parse(val)),
+    "Invalid date format"
+  ),
+  timezone: z.string().optional().default("America/New_York"),
+  notes: z.string().optional(),
+});
+
+export const UpdateScheduledPostSchema = z.object({
+  scheduledFor: z.string().refine(
+    (val) => !isNaN(Date.parse(val)),
+    "Invalid date format"
+  ).optional(),
+  timezone: z.string().optional(),
+  status: ScheduledPostStatusSchema.optional(),
+  notes: z.string().optional(),
+});
+
+// ============================================================================
+// Posting Request Schemas
+// ============================================================================
+
+export const PostToLinkedInSchema = z.object({
+  artifactId: z.string().min(1, "Artifact ID is required"),
+  socialAccountId: z.string().min(1, "Social account ID is required"),
+  immediate: z.boolean().optional().default(false),
+});
+
+export const PostToSubstackSchema = z.object({
+  artifactId: z.string().min(1, "Artifact ID is required"),
+  socialAccountId: z.string().min(1, "Social account ID is required"),
+  publishNow: z.boolean().optional().default(false),
+  sendEmail: z.boolean().optional().default(true),
+});
+
+// ============================================================================
+// OAuth Schemas
+// ============================================================================
+
+export const OAuthConnectSchema = z.object({
+  platform: SocialPlatformSchema,
+  accountType: LinkedInAccountTypeSchema.optional(),
+  redirectUri: z.string().url("Invalid redirect URI"),
+});
+
+export const OAuthCallbackSchema = z.object({
+  platform: SocialPlatformSchema,
+  code: z.string().min(1, "Authorization code is required"),
+  state: z.string().optional(),
+});
+
+// ============================================================================
+// Calendar Query Schemas
+// ============================================================================
+
+export const CalendarQuerySchema = z.object({
+  year: z.number().int().min(2020).max(2100),
+  month: z.number().int().min(1).max(12),
+  socialAccountId: z.string().optional(),
+  platform: SocialPlatformSchema.optional(),
+});
+
+// ============================================================================
+// Type Exports from Schemas
+// ============================================================================
+
+export type SocialPlatformType = z.infer<typeof SocialPlatformSchema>;
+export type LinkedInAccountTypeType = z.infer<typeof LinkedInAccountTypeSchema>;
+export type ScheduledPostStatusType = z.infer<typeof ScheduledPostStatusSchema>;
+export type SocialAccountType = z.infer<typeof SocialAccountSchema>;
+export type CreateSocialAccountType = z.infer<typeof CreateSocialAccountSchema>;
+export type ScheduledPostType = z.infer<typeof ScheduledPostSchema>;
+export type CreateScheduledPostType = z.infer<typeof CreateScheduledPostSchema>;
+export type UpdateScheduledPostType = z.infer<typeof UpdateScheduledPostSchema>;
+export type PostToLinkedInType = z.infer<typeof PostToLinkedInSchema>;
+export type PostToSubstackType = z.infer<typeof PostToSubstackSchema>;
+export type OAuthConnectType = z.infer<typeof OAuthConnectSchema>;
+export type OAuthCallbackType = z.infer<typeof OAuthCallbackSchema>;
+export type CalendarQueryType = z.infer<typeof CalendarQuerySchema>;

@@ -2,6 +2,27 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { ContentArtifact, Platform, Segment } from "@soft-melanin/shared";
 
+// Type for Prisma content artifact result
+interface PrismaArtifact {
+  id: string;
+  platform: string;
+  segment: string;
+  hook: string;
+  body: string;
+  tripleS: string;
+  soft: string;
+  hashtags: string;
+  seoTags: string | null;
+  visual: string;
+  productMentions: string | null;
+  growth: string;
+  qa: string;
+  seedIdea: string | null;
+  monthlyTheme: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -29,7 +50,7 @@ export async function GET(request: NextRequest) {
     const total = await prisma.contentArtifact.count({ where });
 
     // Transform to ContentArtifact type
-    const transformedArtifacts: ContentArtifact[] = artifacts.map((a) => ({
+    const transformedArtifacts: ContentArtifact[] = (artifacts as PrismaArtifact[]).map((a: PrismaArtifact) => ({
       id: a.id,
       platform: a.platform as Platform,
       segment: a.segment as Segment,
