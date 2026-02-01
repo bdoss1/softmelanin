@@ -1,6 +1,6 @@
 # Soft Melanin MCP — Softness Strategist™ Content Engine
 
-A production-ready content intelligence engine and admin dashboard for Soft Melanin, built with Next.js, shadcn/ui, and TypeScript.
+A production-ready content intelligence engine and admin dashboard for Soft Melanin, built with Next.js, shadcn/ui, and TypeScript. Now featuring automated social posting to LinkedIn and Substack.
 
 ## Overview
 
@@ -12,6 +12,7 @@ This system transforms minimal inputs (seed ideas, framework elements, monthly t
 - **AI Visual Prompts** — Midjourney/DALL-E ready prompts
 - **Quote Cards** — Brand-aligned text options
 - **Hashtag Strategy** — Optimized tag combinations
+- **Automated Scheduling** — Calendar-based content publishing
 
 ## Brand Foundation
 
@@ -23,7 +24,7 @@ This system transforms minimal inputs (seed ideas, framework elements, monthly t
 
 ## Key Features
 
-### Embedded Frameworks
+### Content Generation
 
 #### S.O.F.T. Framework™
 - **S** - Separate worth from work
@@ -35,6 +36,14 @@ This system transforms minimal inputs (seed ideas, framework elements, monthly t
 - **STOP** — Hook using 5 C's (Curiosity, Contradiction, Conflict, Contrast, Controversy)
 - **STAY** — Story + resonance
 - **SHARE** — Takeaways + reflective CTA
+
+### Social Posting & Scheduling
+
+- **LinkedIn Integration** — OAuth-based posting to personal profiles and company pages
+- **Substack Integration** — API-based publishing to newsletters
+- **Calendar View** — Visual scheduling with month navigation
+- **Automated Publishing** — Background scheduler for timed posts
+- **Retry Logic** — Automatic retry with exponential backoff on failures
 
 ### Audience Segments
 
@@ -71,11 +80,28 @@ soft-melanin-mcp/
 │       ├── app/
 │       │   ├── api/
 │       │   │   ├── generate/   # Content generation endpoint
-│       │   │   └── artifacts/  # Content library endpoint
+│       │   │   ├── artifacts/  # Content library endpoint
+│       │   │   └── social/     # Social posting APIs
+│       │   │       ├── accounts/   # Social account management
+│       │   │       ├── scheduled/  # Scheduled posts CRUD
+│       │   │       ├── calendar/   # Calendar data endpoint
+│       │   │       ├── post/       # Immediate posting
+│       │   │       └── oauth/      # OAuth flows
+│       │   ├── auth/           # OAuth callbacks
 │       │   ├── library/        # Content library page
+│       │   ├── schedule/       # Scheduling calendar page
+│       │   ├── settings/       # Settings pages
+│       │   │   └── social/     # Social account settings
 │       │   └── page.tsx        # Main generator page
-│       ├── components/ui/      # shadcn components
-│       └── lib/                # Utilities + engine config
+│       ├── components/
+│       │   ├── ui/             # shadcn components
+│       │   └── calendar/       # Calendar components
+│       └── lib/
+│           ├── social/         # Social integration services
+│           │   ├── linkedin.ts # LinkedIn API service
+│           │   ├── substack.ts # Substack API service
+│           │   └── scheduler.ts # Automated scheduler
+│           └── engine.ts       # Content engine config
 ├── packages/
 │   ├── engine/                 # Content generation engine
 │   │   └── src/
@@ -87,8 +113,10 @@ soft-melanin-mcp/
 │       └── src/
 │           ├── types.ts        # TypeScript types
 │           └── schemas.ts      # Zod validation schemas
-├── prisma/
-│   └── schema.prisma           # Database schema
+├── docs/                       # Documentation
+│   ├── scheduling.md           # Scheduling guide
+│   ├── social-integrations.md  # Social platform setup
+│   └── api-reference.md        # API documentation
 ├── examples/
 │   └── sample_outputs.json     # Acceptance test outputs
 ├── turbo.json                  # Turborepo config
@@ -141,11 +169,16 @@ OPENAI_MODEL="gpt-4-turbo-preview"
 # Anthropic (if using)
 ANTHROPIC_API_KEY="sk-ant-..."
 ANTHROPIC_MODEL="claude-3-sonnet-20240229"
+
+# LinkedIn OAuth (for social posting)
+LINKEDIN_CLIENT_ID="your_client_id"
+LINKEDIN_CLIENT_SECRET="your_client_secret"
+LINKEDIN_REDIRECT_URI="http://localhost:3000/auth/callback/linkedin"
 ```
 
 ## Usage
 
-### Admin Dashboard
+### Content Generation
 
 1. Navigate to `http://localhost:3000`
 2. Enter a seed idea (e.g., "Boundaries at work when everyone thinks you're the dependable one")
@@ -153,6 +186,24 @@ ANTHROPIC_MODEL="claude-3-sonnet-20240229"
 4. Select target segments and platforms
 5. Toggle product mentions and A/B variants if desired
 6. Click "Generate Content"
+
+### Content Scheduling
+
+1. Navigate to `/schedule` for the calendar view
+2. Connect your social accounts in `/settings/social`
+3. Select content from the queue or library
+4. Choose a date and time for publishing
+5. The scheduler automatically posts at the scheduled time
+
+See [docs/scheduling.md](docs/scheduling.md) for detailed instructions.
+
+### Social Account Setup
+
+1. Go to `/settings/social`
+2. For LinkedIn: Click "Connect Account" and complete OAuth flow
+3. For Substack: Enter your publication subdomain and API key
+
+See [docs/social-integrations.md](docs/social-integrations.md) for platform-specific setup.
 
 ### Generated Content Includes
 
@@ -175,10 +226,13 @@ Navigate to `/library` to:
 - Copy content to clipboard
 - Export as JSON
 - Delete artifacts
+- Schedule for posting
 
 ## API Endpoints
 
-### POST /api/generate
+### Content Generation
+
+#### POST /api/generate
 
 Generate new content artifacts.
 
@@ -193,7 +247,7 @@ Generate new content artifacts.
 }
 ```
 
-### GET /api/artifacts
+#### GET /api/artifacts
 
 Fetch saved artifacts.
 
@@ -204,13 +258,37 @@ Fetch saved artifacts.
 &offset=0
 ```
 
-### DELETE /api/artifacts
+#### DELETE /api/artifacts
 
 Delete an artifact.
 
 ```
 ?id=artifact-id
 ```
+
+### Social Posting
+
+#### GET /api/social/accounts
+
+List connected social accounts.
+
+#### POST /api/social/accounts
+
+Connect a new social account.
+
+#### GET /api/social/scheduled
+
+List scheduled posts with optional filters.
+
+#### POST /api/social/scheduled
+
+Schedule a post for publishing.
+
+#### GET /api/social/calendar
+
+Get calendar data for a month.
+
+See [docs/api-reference.md](docs/api-reference.md) for complete API documentation.
 
 ## Acceptance Test
 
