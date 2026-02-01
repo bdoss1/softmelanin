@@ -39,6 +39,7 @@ export default function Home() {
   const [errors, setErrors] = useState<string[]>([]);
   const [selectedArtifact, setSelectedArtifact] = useState<ContentArtifact | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [progressMessage, setProgressMessage] = useState<string | null>(null);
 
   const toggleSegment = (segment: Segment) => {
     setSelectedSegments((prev) =>
@@ -65,48 +66,67 @@ export default function Home() {
     setIsGenerating(true);
     setErrors([]);
     setArtifacts([]);
+    setProgressMessage("Queued…");
 
     try {
-      const allArtifacts: ContentArtifact[] = [];
-      const allErrors: string[] = [];
+      const submitResponse = await fetch("/api/generate/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          seedIdea,
+          monthlyTheme: monthlyTheme || undefined,
+          segments: selectedSegments,
+          platforms: selectedPlatforms,
+          includeProductMentions: includeProducts,
+          generateABVariants: generateVariants,
+        }),
+      });
 
-      for (const platform of selectedPlatforms) {
-        const response = await fetch("/api/generate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            seedIdea,
-            monthlyTheme: monthlyTheme || undefined,
-            segments: selectedSegments,
-            platforms: [platform],
-            includeProductMentions: includeProducts,
-            generateABVariants: generateVariants,
-          }),
-        });
+      const submitData = await submitResponse.json();
 
-        if (!response.ok) {
-          allErrors.push(`${platform}: Request failed (${response.status})`);
-          continue;
+      if (!submitResponse.ok || !submitData.success) {
+        setErrors(submitData.errors || ["Generation failed. Please try again."]);
+        setProgressMessage(null);
+        return;
+      }
+
+      const jobId = submitData.jobId as string;
+      const startedAt = Date.now();
+      const timeoutMs = 10 * 60 * 1000;
+
+      while (Date.now() - startedAt < timeoutMs) {
+        await new Promise((resolve) => setTimeout(resolve, 2500));
+        setProgressMessage("Generating…");
+        const statusResponse = await fetch(`/api/generate/status?jobId=${jobId}`);
+        const statusData = await statusResponse.json();
+
+        if (!statusResponse.ok || !statusData.success) {
+          setErrors(statusData.error ? [statusData.error] : ["Failed to check job status."]);
+          setProgressMessage(null);
+          return;
         }
 
-        const data = await response.json();
-
-        if (data.success) {
-          allArtifacts.push(...data.artifacts);
-          if (data.errors && data.errors.length > 0) {
-            allErrors.push(...data.errors);
+        if (statusData.status === "completed" || statusData.status === "completed_with_errors") {
+          setArtifacts(statusData.artifacts || []);
+          if (statusData.errors && statusData.errors.length > 0) {
+            setErrors(statusData.errors);
           }
-        } else {
-          allErrors.push(...(data.errors || [`${platform}: Generation failed. Please try again.`]));
+          setProgressMessage(null);
+          return;
+        }
+
+        if (statusData.status === "failed") {
+          setErrors(statusData.errors || ["Generation failed. Please try again."]);
+          setProgressMessage(null);
+          return;
         }
       }
 
-      setArtifacts(allArtifacts);
-      if (allErrors.length > 0) {
-        setErrors(allErrors);
-      }
+      setErrors(["Generation timed out. Please try again."]);
+      setProgressMessage(null);
     } catch (error) {
       setErrors(["Network error. Please check your connection and try again."]);
+      setProgressMessage(null);
     } finally {
       setIsGenerating(false);
     }
@@ -245,7 +265,7 @@ export default function Home() {
                 {isGenerating ? (
                   <>
                     <Spinner size="sm" className="mr-2 text-white" />
-                    Generating...
+                    {progressMessage || "Generating..."}
                   </>
                 ) : (
                   <>

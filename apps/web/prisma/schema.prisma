@@ -85,6 +85,21 @@ model GenerationSession {
 }
 
 // ============================================================================
+// Generation Jobs (Background Processing)
+// ============================================================================
+
+model GenerationJob {
+  id          String   @id @default(cuid())
+  status      String
+  request     String
+  artifactIds String?
+  errors      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  completedAt DateTime?
+}
+
+// ============================================================================
 // Monthly Themes
 // ============================================================================
 
