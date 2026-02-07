@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { ContentArtifact, Platform, Segment } from "@soft-melanin/shared";
+import { ContentArtifact, Platform, Segment, TripleS, SOFTFramework, Visual, Growth, QAValidation } from "@soft-melanin/shared";
 
 export async function GET(request: NextRequest) {
   try {
@@ -28,21 +28,21 @@ export async function GET(request: NextRequest) {
     // Get total count for pagination
     const total = await prisma.contentArtifact.count({ where });
 
-    // Transform to ContentArtifact type
+    // Transform to ContentArtifact type (Prisma Json type auto-deserializes)
     const transformedArtifacts: ContentArtifact[] = artifacts.map((a) => ({
       id: a.id,
       platform: a.platform as Platform,
       segment: a.segment as Segment,
       hook: a.hook,
       body: a.body,
-      tripleS: JSON.parse(a.tripleS),
-      soft: JSON.parse(a.soft),
-      hashtags: JSON.parse(a.hashtags),
-      seoTags: a.seoTags ? JSON.parse(a.seoTags) : undefined,
-      visual: JSON.parse(a.visual),
-      productMentions: a.productMentions ? JSON.parse(a.productMentions) : undefined,
-      growth: JSON.parse(a.growth),
-      qa: JSON.parse(a.qa),
+      tripleS: a.tripleS as unknown as TripleS,
+      soft: a.soft as unknown as SOFTFramework,
+      hashtags: a.hashtags as unknown as string[],
+      seoTags: a.seoTags as unknown as string[] | undefined,
+      visual: a.visual as unknown as Visual,
+      productMentions: a.productMentions as unknown as ContentArtifact["productMentions"],
+      growth: a.growth as unknown as Growth,
+      qa: a.qa as unknown as QAValidation,
       seedIdea: a.seedIdea || undefined,
       monthlyTheme: a.monthlyTheme || undefined,
       createdAt: a.createdAt,

@@ -1,13 +1,14 @@
 // Soft Melanin MCP - Database Schema
-// Using SQLite for simplicity and portability
+// Using PostgreSQL with Supabase
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // ============================================================================
@@ -25,30 +26,30 @@ model ContentArtifact {
 
   // Content
   hook String
-  body String
+  body String @db.Text
 
   // Framework mappings stored as JSON
-  tripleS String // JSON: { stop, stay, share }
-  soft    String // JSON: { separate, own, filter, thrive }
+  tripleS Json // { stop, stay, share }
+  soft    Json // { separate, own, filter, thrive }
 
   // Hashtags and SEO
-  hashtags String  // JSON array
-  seoTags  String? // JSON array (optional, for Substack)
+  hashtags Json  // JSON array
+  seoTags  Json? // JSON array (optional, for Substack)
 
   // Visual generation
-  visual String // JSON: { prompt, palette, quoteCardTextOptions }
+  visual Json // { prompt, palette, quoteCardTextOptions }
 
   // Product mentions
-  productMentions String? // JSON array (optional)
+  productMentions Json? // JSON array (optional)
 
   // Growth optimization
-  growth String // JSON: { bestPostingTimes, repurposingIdeas, abVariants }
+  growth Json // { bestPostingTimes, repurposingIdeas, abVariants }
 
   // QA validation
-  qa String // JSON: { authenticityPass, brandVoicePass, etc. }
+  qa Json // { authenticityPass, brandVoicePass, etc. }
 
   // Generation context
-  seedIdea     String?
+  seedIdea     String? @db.Text
   monthlyTheme String?
 
   // Indexes for efficient querying
@@ -66,19 +67,19 @@ model GenerationSession {
   createdAt DateTime @default(now())
 
   // Input
-  seedIdea     String
+  seedIdea     String  @db.Text
   monthlyTheme String?
-  segments     String // JSON array of selected segments
-  platforms    String // JSON array of selected platforms
+  segments     Json // JSON array of selected segments
+  platforms    Json // JSON array of selected platforms
 
   // Options
   includeProductMentions Boolean @default(false)
   generateABVariants     Boolean @default(false)
 
   // Output
-  artifactIds String // JSON array of artifact IDs
+  artifactIds Json // JSON array of artifact IDs
   success     Boolean
-  errors      String? // JSON array of errors
+  errors      Json? // JSON array of errors
 }
 
 // ============================================================================
@@ -94,8 +95,8 @@ model MonthlyTheme {
   month       Int    // 1-12
   year        Int
   title       String
-  description String
-  keywords    String // JSON array
+  description String @db.Text
+  keywords    Json // JSON array
 
   // Active status
   isActive Boolean @default(false)
@@ -112,12 +113,12 @@ model SeedIdea {
   createdAt DateTime @default(now())
 
   // Content
-  idea     String
+  idea     String  @db.Text
   category String? // optional categorization
-  tags     String? // JSON array
+  tags     Json? // JSON array
 
   // Usage tracking
-  usageCount Int     @default(0)
+  usageCount Int       @default(0)
   lastUsedAt DateTime?
 }
 
@@ -130,9 +131,9 @@ model HashtagPerformance {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  hashtag     String @unique
-  category    String // primary, wellness, identity, business
-  usageCount  Int    @default(0)
+  hashtag    String @unique
+  category   String // primary, wellness, identity, business
+  usageCount Int    @default(0)
 
   // Performance metrics (to be populated from analytics)
   avgEngagement Float?

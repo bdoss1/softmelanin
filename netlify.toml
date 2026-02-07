@@ -1,0 +1,23 @@
+# Netlify configuration for Soft Melanin MCP
+
+[build]
+  # Build from root to install all workspace dependencies
+  command = "pnpm install && pnpm build"
+  # Publish directory for Next.js (relative to base or root)
+  publish = "apps/web/.next"
+
+# Use the Next.js runtime
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  # Node version
+  NODE_VERSION = "20"
+  # Enable pnpm
+  NPM_FLAGS = "--legacy-peer-deps"
+
+# Environment variables (set in Netlify dashboard)
+# DATABASE_URL = "postgresql://..."
+# DIRECT_URL = "postgresql://..."
+# OPENAI_API_KEY = "..."
+# ANTHROPIC_API_KEY = "..."
